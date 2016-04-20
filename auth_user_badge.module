@@ -1,0 +1,43 @@
+<?php
+/**
+ * Implements hook_block_info()
+ */
+  
+function auth_user_badge_block_info() {
+  $blocks['oa_user_badge'] = array(
+    'info' => t('Open Atrium User Badge'),
+    // Was DRUPAL_CACHE_PER_USER
+    'cache' => DRUPAL_NO_CACHE,
+  );
+    return $blocks;
+}
+
+
+/**
+ * Implements hook_block_view()
+ */
+function auth_user_badge_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'oa_user_badge':
+      $block['subject'] = '';
+      $block['content'] = theme('oa_user_badge');
+      break;
+  }
+  return $block;
+}
+
+
+/**
+ * Implements hook_theme()
+ */
+function auth_user_badge_theme() {
+  $path = drupal_get_path('module', 'auth_user_badge') . '/templates';
+  return array(
+    'oa_user_badge' => array(
+      'template' => 'auth-user-badge',
+      'path' => $path,
+    ),
+  );
+}
